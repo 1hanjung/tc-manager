@@ -1,36 +1,110 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🧪 테스트 케이스 관리 도구 (tc-manager)
 
-## Getting Started
+QA 업무에서 테스트 케이스를 효율적으로 관리하고, URL 자동 테스트를 실행할 수 있는 도구입니다.
 
-First, run the development server:
+---
 
-```bash
+## 주요 기능
+
+- ✅ **테스트 케이스 관리** - 작성 / 수정 / 삭제 / 상태 관리 (통과 / 실패 / 보류)
+- 🌐 **URL 자동 테스트** - URL 입력 후 버튼 클릭 한 번으로 자동 QA 실행
+- 📊 **테스트 결과 리포트** - 바탕화면에 HTML 리포트 자동 저장
+- 🎬 **미디어 요소 테스트** - 동영상, 게임 캔버스 존재 여부 확인
+
+---
+
+## 자동 테스트 항목
+
+| 항목 | 설명 |
+|------|------|
+| 페이지 로드 시간 | 페이지가 로드되는 데 걸린 시간 |
+| 콘솔 에러 | 브라우저 콘솔에서 발생한 에러 목록 |
+| 깨진 링크 | 응답이 없거나 오류가 발생한 링크 목록 |
+| 스크린샷 | 페이지 전체 화면 캡처 |
+| 이미지 누락 | 로드되지 않은 이미지 목록 |
+| 동영상 요소 | video 태그 존재 및 재생 가능 여부 |
+| 게임/캔버스 | canvas 요소 렌더링 여부 |
+
+---
+
+## 시작하기
+
+### 사전 요구사항
+
+- [Node.js](https://nodejs.org) 18 버전 이상
+- [Git](https://git-scm.com)
+
+### 설치 및 실행
+
+```powershell
+# 1. 저장소 클론
+git clone https://github.com/1hanjung/tc-manager.git
+cd tc-manager
+
+# 2. 패키지 설치
+npm install
+
+# 3. Playwright 브라우저 설치 (URL 자동 테스트에 필요)
+npx playwright install chromium
+
+# 4. DB 초기화
+npx prisma migrate deploy
+
+# 5. 개발 서버 실행
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 접속
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+브라우저에서 아래 주소로 접속하세요:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+http://localhost:3000
+```
 
-## Learn More
+**URL 자동 테스트 바로가기:**
+```
+http://localhost:3000/url-test
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 기술 스택
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| 분류 | 기술 |
+|------|------|
+| Framework | Next.js 15 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS v4 |
+| UI Components | shadcn/ui |
+| ORM | Prisma |
+| DB | SQLite |
+| 자동 테스트 | Playwright |
+| 데이터 패칭 | TanStack Query |
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 폴더 구조
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+tc-manager/
+├── src/
+│   ├── app/
+│   │   ├── api/          # API 라우트
+│   │   ├── url-test/     # URL 자동 테스트 페이지
+│   │   └── page.tsx      # 메인 페이지
+│   ├── components/       # 공통 UI 컴포넌트
+│   └── lib/              # 유틸리티, DB 연결
+├── prisma/               # DB 스키마
+└── README.md
+```
+
+---
+
+## 테스트 결과 위치
+
+URL 자동 테스트 실행 후 결과 리포트는 **바탕화면**에 HTML 파일로 저장됩니다.
+
+```
+C:\Users\{사용자명}\Desktop\qa-report-{날짜시간}.html
+```
